@@ -7,6 +7,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.get('/route', (req, res) => {
+  res.send('Hello Router, <img src="/background.png">');
+});
+
 app.get('/login', (req, res) => {
   res.send('login please!');
 });

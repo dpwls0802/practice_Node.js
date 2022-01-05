@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+app.set('views', './views'); //템플릿 있는 디렉토리
+app.set('view engine', 'pug'); //사용할 템플릿 엔진
+
 app.use(express.static('public')); //정적 파일 제공
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -37,6 +40,11 @@ app.get('/dynamic', (req, res) => { //동적
 
 app.get('/login', (req, res) => {
   res.send('login please!');
+});
+
+//템플릿 엔:
+app.get('/template', (req, res) => {
+  res.render('index', {title : 'hey', message : 'hello~~'});
 });
 
 app.listen(port, () => {

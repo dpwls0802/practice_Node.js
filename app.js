@@ -42,9 +42,25 @@ app.get('/login', (req, res) => {
   res.send('login please!');
 });
 
-//템플릿 엔:
+//템플릿 엔진
 app.get('/template', (req, res) => {
   res.render('index', {title : 'hey', message : 'hello~~'});
+});
+
+//쿼리스트링, 쿼리 객체
+app.get('/topic', (req, res) => {
+  var topics = [
+    'javascript is..', 'nodejs is...', 'express is..'
+  ];
+
+  var str = `
+    <a href="/topic?id=0">javascript</a><br>
+    <a href="/topic?id=1">nodejs</a><br>
+    <a href="/topic?id=2">express</a><br>
+  `;
+
+  var output = str + topics[req.query.id]
+  res.send(output);
 });
 
 app.listen(port, () => {

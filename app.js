@@ -63,6 +63,22 @@ app.get('/topic', (req, res) => {
   res.send(output);
 });
 
+//semantic URL
+app.get('/topic/:id', (req, res) => {
+  var topics = [
+    'javascript is..', 'nodejs is...', 'express is..'
+  ];
+
+  var str = `
+    <a href="/topic?id=0">javascript</a><br>
+    <a href="/topic?id=1">nodejs</a><br>
+    <a href="/topic?id=2">express</a><br>
+  `;
+
+  var output = str + topics[req.params.id]
+  res.send(output);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

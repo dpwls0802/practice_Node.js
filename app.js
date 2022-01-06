@@ -79,6 +79,18 @@ app.get('/topic/:id', (req, res) => {
   res.send(output);
 });
 
+//form을 통한 정보 전달(get/post)
+app.get('/form', (req, res) => {
+  res.render('form');
+});
+
+app.get('/form_receiver', (req, res) => {
+  var title = req.query.title;
+  var description = req.query.description;
+  res.send(title+','+description);
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

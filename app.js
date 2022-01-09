@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+var bodyParser = require('body-parser');
 
 app.set('views', './views'); //템플릿 있는 디렉토리
 app.set('view engine', 'pug'); //사용할 템플릿 엔진
 
 app.use(express.static('public')); //정적 파일 제공
+app.use(bodyParser.urlencoded({ extended: false})) //parse app;ication/x-www-form-urlencoded
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -84,12 +86,20 @@ app.get('/form', (req, res) => {
   res.render('form');
 });
 
+//get
 app.get('/form_receiver', (req, res) => {
+  res.send('hello, get');
   var title = req.query.title;
   var description = req.query.description;
   res.send(title+','+description);
 });
 
+//post
+app.post('/form_receiver', (req, res) => {
+  var title = req.body.title;
+  var description = req.body.description;
+  res.send(title+','+description);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

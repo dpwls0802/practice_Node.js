@@ -11,7 +11,31 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 app.get('/topic/new', (req, res) => {
   res.render('new');
-})
+});
+
+app.get('/topic', (req, res) => {
+  fs.readdir('data', function(err, files) {
+    if(err) {
+      res.status(500).send('Internal Server Error');
+    }
+    res.render('view', {topics:files});
+  });
+});
+
+app.get('/topic/:id', function(req, res){
+  const id = req.params.id;
+  fs.readdir('data', function(err, files) {
+    if(err) {
+      res.status(500).send('Internal Server Error');
+    }
+    fs.readFile('data/'+id, 'utf8', function(err, data){
+      if(err) {
+        res.status(500).send('Internal Server Error');
+      }
+      res.render('view', {topics:files, title:id, description:data});
+    });
+  });
+});
 
 app.post('/topic' , (req, res) => {
 const title = req.body.title;
